@@ -1,31 +1,31 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Geo Word Chain Game</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="game-container">
-    <h1>Geo Word Chain</h1>
+    <h1>🌍 Geo Word Chain</h1>
+
     <div id="setup">
-      <input type="text" id="username" placeholder="Enter your name">
+      <input id="username" placeholder="Your name" />
       <button onclick="createRoom()">Create Room</button>
-      <input type="text" id="room-id" placeholder="Enter Room ID">
+      <input id="room-id" placeholder="Room ID" />
       <button onclick="joinRoom()">Join Room</button>
     </div>
+
     <div id="game" style="display: none;">
-      <p>Last Word: <span id="last-word">None</span></p>
-      <p>Your Turn: <span id="your-turn">No</span></p>
-      <input type="text" id="word-input" placeholder="Enter a place name">
+      <p><strong>Last Word:</strong> <span id="last-word">None</span></p>
+      <p><strong>Your Turn:</strong> <span id="your-turn">No</span></p>
+      <input id="word-input" placeholder="Enter place name" />
       <button onclick="submitWord()">Submit</button>
-      <p>Used Words: <span id="used-words"></span></p>
+      <p><strong>Used Words:</strong> <span id="used-words">[]</span></p>
     </div>
   </div>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="script.js"></script>
+
+  <script type="module" src="script.js"></script>
 </body>
 </html>
