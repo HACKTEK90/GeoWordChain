@@ -79,31 +79,41 @@ function startGame(roomId) {
 }
 
 window.submitWord = async function () {
-  if (!isMyTurn) return alert("Not your turn!");
+  if (!isMyTurn) return alert("⛔ Not your turn!");
+
   const input = document.getElementById("word-input");
-  const newWord = input.value.trim();
-  if (!newWord) return alert("Enter a word!");
+  const word = input.value.trim().toLowerCase();
+  input.value = "";
 
-  const gameRef = ref(db, "rooms/" + roomId + "/gameState");
-  const snapshot = await get(gameRef);
-  const state = snapshot.val();
-  const { lastWord, usedWords, turn } = state;
+  if (!word) return alert("⚠️ Please enter a word.");
 
-  if (usedWords.includes(newWord.toLowerCase()))
-    return alert("Word already used.");
+  // 🔍 1. Check geo validity
+  const isRealPlace = await isValidPlace(word);
+  if (!isRealPlace) {
+    alert("❌ Not a valid geographical location.");
+    handleLoss(); // optional: remove or skip this player
+    return;
+  }
 
-  if (lastWord && newWord[0].toLowerCase() !== lastWord.slice(-1).toLowerCase())
-    return alert(`Word must start with '${lastWord.slice(-1).toUpperCase()}'`);
+  // ✅ 2. Rest of your checks (last letter, repeated word etc.)
+  if (usedWords.includes(word)) {
+    alert("❗ This word was already used.");
+    return;
+  }
 
-  const playersSnapshot = await get(ref(db, "rooms/" + roomId + "/players"));
-  const players = playersSnapshot.val();
-  const nextPlayer = players[(players.indexOf(username) + 1) % players.length];
+  if (lastWord && word[0] !== lastWord[lastWord.length - 1]) {
+    alert("❌ Word doesn't start with last letter.");
+    return;
+  }
 
-  await update(gameRef, {
-    lastWord: newWord,
-    usedWords: [...usedWords, newWord.toLowerCase()],
-    turn: nextPlayer
+  // ✅ 3. Push valid word to Firebase
+  await update(ref(db, `rooms/${roomId}`), {
+    lastWord: word,
+    turnIndex: (turnIndex + 1) % players.length,
+    usedWords: [...usedWords, word]
   });
+};
+
 
   input.value = "";
 };
@@ -117,4 +127,24 @@ function scheduleAutoDelete(roomId, createdAt) {
     remove(ref(db, "rooms/" + roomId));
     console.log("Room auto-deleted: " + roomId);
   }, timeLeft);
+}
+
+async function isValidPlace(placeName) {
+  const url = `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${placeName}`;
+  
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '1b61595180mshd987fdd20706339p178259jsnc30974367b78', // Replace with your actual key
+        'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+      }
+    });
+    
+    const data = await response.json();
+    return data.data.length > 0; // true if place exists
+  } catch (error) {
+    console.error('GeoDB Error:', error);
+    return false;
+  }
 }
