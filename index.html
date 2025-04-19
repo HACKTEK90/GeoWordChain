@@ -3,29 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Geo Word Chain Game</title>
+  <title>Geo Chain Multiplayer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
-  <div id="game-container">
-    <h1>🌍 Geo Word Chain</h1>
 
-    <div id="setup">
-      <input id="username" placeholder="Your name" />
-      <button onclick="createRoom()">Create Room</button>
-      <input id="room-id" placeholder="Room ID" />
+  <div class="container">
+
+    <div id="setup" class="card">
+      <h2>Geo Chain Game 🌍</h2>
+      <label class="label">Your Name</label>
+      <input type="text" id="username" placeholder="Enter your name"/>
+
+      <div style="margin-top: 10px;">
+        <button onclick="createRoom()">Create Room</button>
+      </div>
+
+      <hr style="margin: 20px 0; border-color: #30363d" />
+
+      <label class="label">Room ID to Join</label>
+      <input type="text" id="room-id" placeholder="Enter Room ID"/>
       <button onclick="joinRoom()">Join Room</button>
     </div>
 
-    <div id="game" style="display: none;">
-      <p><strong>Last Word:</strong> <span id="last-word">None</span></p>
-      <p><strong>Your Turn:</strong> <span id="your-turn">No</span></p>
-      <input id="word-input" placeholder="Enter place name" />
+    <div id="game" class="card">
+      <h2>Game Room 🎮</h2>
+      <div class="output"><span class="label">Last Word:</span> <span id="last-word">None</span></div>
+      <div class="output"><span class="label">Used Words:</span> <span id="used-words">-</span></div>
+      <div class="output"><span class="label">Your Turn?</span> <span id="your-turn">No</span></div>
+
+      <input type="text" id="word-input" placeholder="Enter place name"/>
       <button onclick="submitWord()">Submit</button>
-      <p><strong>Used Words:</strong> <span id="used-words">[]</span></p>
+
+      <div class="status" id="game-status"></div>
     </div>
+
   </div>
 
-  <script type="module" src="script.js"></script>
+  <script type="module" src="./script.js"></script>
 </body>
 </html>
