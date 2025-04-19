@@ -1,36 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+}
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  text-align: center;
-  background-color: #eef2f3;
-  margin-top: 50px;
+  margin: 0;
+  padding: 0;
+  background: #0d1117;
+  color: #e6edf3;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 10px;
 }
 
-#game-container {
-  background: white;
+.container {
+  max-width: 500px;
+  width: 100%;
+}
+
+.card {
+  background: #161b22;
+  border: 1px solid #30363d;
   border-radius: 12px;
-  padding: 30px;
-  display: inline-block;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.05);
 }
 
-input {
+h2 {
+  margin-top: 0;
+  color: #58a6ff;
+}
+
+input[type="text"] {
+  width: 100%;
   padding: 10px;
-  margin: 10px;
-  width: 220px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #21262d;
+  color: #e6edf3;
 }
 
 button {
-  padding: 10px 15px;
-  margin: 10px;
-  cursor: pointer;
-  border: none;
-  background-color: #0077ff;
+  background: #238636;
   color: white;
-  border-radius: 5px;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 button:hover {
-  background-color: #005fcc;
+  background: #2ea043;
+}
+
+.status {
+  margin-top: 10px;
+}
+
+#game {
+  display: none;
+}
+
+.label {
+  font-weight: bold;
+  color: #8b949e;
+}
+
+.output {
+  margin-bottom: 12px;
+}
+
+hr {
+  border-color: #30363d;
 }
