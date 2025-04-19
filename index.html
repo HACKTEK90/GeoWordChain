@@ -1,0 +1,31 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Geo Word Chain Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-container">
+    <h1>Geo Word Chain</h1>
+    <div id="setup">
+      <input type="text" id="username" placeholder="Enter your name">
+      <button onclick="createRoom()">Create Room</button>
+      <input type="text" id="room-id" placeholder="Enter Room ID">
+      <button onclick="joinRoom()">Join Room</button>
+    </div>
+    <div id="game" style="display: none;">
+      <p>Last Word: <span id="last-word">None</span></p>
+      <p>Your Turn: <span id="your-turn">No</span></p>
+      <input type="text" id="word-input" placeholder="Enter a place name">
+      <button onclick="submitWord()">Submit</button>
+      <p>Used Words: <span id="used-words"></span></p>
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
